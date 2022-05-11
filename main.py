@@ -6,24 +6,148 @@ import psycopg2
 
 class MainWindow(QWidget):
 	def __init__(self):
+		self.n = 2
+		QWidget.__init__(self)
+		self.setWindowTitle('MTUCI is the best university ever!')
+		self.setMaximumSize(QtCore.QSize(600,450))
+		self.setMinimumSize(QtCore.QSize(600,450))
+
+		self.layout = QVBoxLayout(self)
+		self.tabs = QTabWidget(self)
+		self.tabs.resize(560,420)
+		self.tabs.move(20,15)
+
+		self.switch_button = QPushButton('Switch week',self)
+		self.switch_button.clicked.connect(self.switcher)
+		self.switch_button.setStyleSheet("""min-height: 25; min-width: 100; max-height: 25; max-width: 100;""")
+		self.switch_button.move(495, 5)
+
+		self.monday = QWidget(self)
+		self.tuesday = QWidget(self)
+		self.wednesday = QWidget(self)
+		self.thursday = QWidget(self)
+		self.friday = QWidget(self)
+		self.saturday = QWidget(self)
+		self.sunday = QWidget(self)
+		self.tabs.addTab(self.monday,"Monday")
+		self.tabs.addTab(self.tuesday,"Tuesday")
+		self.tabs.addTab(self.wednesday,"Wednesday")
+		self.tabs.addTab(self.thursday,"Thursday")
+		self.tabs.addTab(self.friday,"Friday")
+		self.tabs.addTab(self.saturday,"Saturday")
+		self.tabs.addTab(self.sunday,"Sunday")
+
+
+
+
+
+		self.table_widget('Monday', 2)
+		self.monday.layout = QVBoxLayout(self)
+		self.monday.layout.addWidget(self.table)
+		self.monday.setLayout(self.monday.layout)
+
+		self.table_widget('Tuesday', 2)
+		self.tuesday.layout = QVBoxLayout(self)
+		self.tuesday.layout.addWidget(self.table)
+		self.tuesday.setLayout(self.tuesday.layout)
+	def switcher(self):
+		if self.n == 2:
+			self.n = 1
+		else:
+			self.n = 2
+		print(self.n)
+
+	def table_widget(self, day, week):
+
 		try:
+
 			t1 = "postgres"#DATABASE NAME!
 			t2 = "postgres"#USER NICKNAME!
 			t3 = "postgres"#USER PASSCODE!
 			t4 = "5432"#PORT!
 			t5 = "test"#TABLE NAME!
+
 			conn = psycopg2.connect(dbname=t1, user=t2, password=t3, port=t4)
 			cur_sql = conn.cursor()
 			cur_sql.execute('SELECT * FROM '+str(t5))
+
 		except Exception as error:
+
 			print('Something wrong with postgresql autorization. Error: '+str(error))
-		QWidget.__init__(self)
-		self.setWindowTitle('Authorization')
-		self.setMaximumSize(QtCore.QSize(800,600))
-		self.setMinimumSize(QtCore.QSize(800,600))
-		self.label=QLabel('<p align="center">Hello!</p>',self)
-		self.label.move(0,0)
-		self.label.setStyleSheet("""background-color: rgb(255,255,255); font-size: 24px; color: rgb(0,0,0); font: bold "Times New Roman"; border-radius: 5px; min-width: 800; min-height: 600; max-width: 800; max-height: 600""")
+
+		self.table = QTableWidget(self)
+		self.table.setColumnCount(3)
+		self.table.setRowCount(5)
+		self.table.setMinimumWidth(520)
+		self.table.setMinimumHeight(370)
+		self.table.move(40, 50)
+		self.table.setHorizontalHeaderLabels(['Class','Time','Have any sense?']) 
+		self.table.setItem(0, 1, QTableWidgetItem('9:30-11:05'))
+		self.table.setItem(1, 1, QTableWidgetItem('11:20-12:55'))
+		self.table.setItem(2, 1, QTableWidgetItem('13:10-14:45'))
+		self.table.setItem(3, 1, QTableWidgetItem('15:25-17:00'))
+		self.table.setItem(4, 1, QTableWidgetItem('17:15-18:50'))
+
+		day = self.coverterDAYtoNUM(day)
+
+		if week %2 != 0:
+			if day == 1:
+				cur_sql.execute("SELECT md1 FROM book")
+			elif day == 2:
+				cur_sql.execute("SELECT tu1 FROM book")
+			elif day == 3:
+				cur_sql.execute("SELECT wd1 FROM book")
+			elif day == 4:
+				cur_sql.execute("SELECT th1 FROM book")
+			elif day == 5:
+				cur_sql.execute("SELECT fd1 FROM book")				
+			elif day == 6:
+				cur_sql.execute("SELECT sd1 FROM book")
+			elif day == 7:
+				cur_sql.execute("SELECT sud FROM book")			
+		else:
+			if day == 1:
+				cur_sql.execute("SELECT md2 FROM book")
+			elif day == 2:
+				cur_sql.execute("SELECT tu2 FROM book")				
+			elif day == 3:
+				cur_sql.execute("SELECT wd2 FROM book")
+			elif day == 4:
+				cur_sql.execute("SELECT th2 FROM book")				
+			elif day == 5:
+				cur_sql.execute("SELECT fd2 FROM book")
+			elif day == 6:
+				cur_sql.execute("SELECT sd2 FROM book")				
+			elif day == 7:
+				cur_sql.execute("SELECT sud FROM book")
+
+		answer_help = cur_sql.fetchall()
+		for i in range(len(answer_help)):
+			self.table.setItem(i, 0, QTableWidgetItem(str(answer_help[i])[2:-3]))
+			self.table.setItem(i, 2, QTableWidgetItem(str('No')))
+
+		self.table.resizeColumnsToContents()
+
+	def coverterDAYtoNUM(self, today):
+		if today == "Monday":
+			return 1
+		elif today == 'Tuesday':
+			return 2
+		elif today == 'Wednesday':
+			return 3
+		elif today == 'Thursday':
+			return 4
+		elif today == 'Friday':
+			return 5
+		elif today == 'Saturday':
+			return 6
+		elif today == 'Sunday':
+			return 7
+
+
+		self.layout.addWidget(self.tabs)
+		self.layout.addWidget(self.switch_button)
+		self.setLayout(self.layout)
 
 class Control:
 	def __init__(self):
