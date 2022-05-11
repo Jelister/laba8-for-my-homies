@@ -11,8 +11,8 @@ class MainWindow(QWidget):
 		self.setWindowTitle('MTUCI is the best university ever!')
 		self.setMaximumSize(QtCore.QSize(600,450))
 		self.setMinimumSize(QtCore.QSize(600,450))
-
 		self.layout = QVBoxLayout(self)
+
 		self.tabs = QTabWidget(self)
 		self.tabs.resize(560,420)
 		self.tabs.move(20,15)
@@ -29,6 +29,13 @@ class MainWindow(QWidget):
 		self.friday = QWidget(self)
 		self.saturday = QWidget(self)
 		self.sunday = QWidget(self)
+		self.monday1 = QWidget(self)
+		self.tuesday1 = QWidget(self)
+		self.wednesday1 = QWidget(self)
+		self.thursday1 = QWidget(self)
+		self.friday1 = QWidget(self)
+		self.saturday1 = QWidget(self)
+		self.sunday1 = QWidget(self)
 		self.tabs.addTab(self.monday,"Monday")
 		self.tabs.addTab(self.tuesday,"Tuesday")
 		self.tabs.addTab(self.wednesday,"Wednesday")
@@ -36,26 +43,104 @@ class MainWindow(QWidget):
 		self.tabs.addTab(self.friday,"Friday")
 		self.tabs.addTab(self.saturday,"Saturday")
 		self.tabs.addTab(self.sunday,"Sunday")
-
-
-
-
-
-		self.table_widget('Monday', 2)
 		self.monday.layout = QVBoxLayout(self)
+		self.tuesday.layout = QVBoxLayout(self)
+		self.wednesday.layout = QVBoxLayout(self)
+		self.thursday.layout = QVBoxLayout(self)
+		self.friday.layout = QVBoxLayout(self)
+		self.saturday.layout = QVBoxLayout(self)
+		self.sunday.layout = QVBoxLayout(self)
+		self.monday1.layout = QVBoxLayout(self)
+		self.tuesday1.layout = QVBoxLayout(self)
+		self.wednesday1.layout = QVBoxLayout(self)
+		self.thursday1.layout = QVBoxLayout(self)
+		self.friday1.layout = QVBoxLayout(self)
+		self.saturday1.layout = QVBoxLayout(self)
+		self.sunday1.layout = QVBoxLayout(self)
+		self.table_widget('Monday',2)
 		self.monday.layout.addWidget(self.table)
 		self.monday.setLayout(self.monday.layout)
-
-		self.table_widget('Tuesday', 2)
-		self.tuesday.layout = QVBoxLayout(self)
+		self.table_widget('Monday', 1)
+		self.monday1.layout.addWidget(self.table)
+		self.monday1.setLayout(self.monday1.layout)
+		self.table_widget('Tuesday',2)
 		self.tuesday.layout.addWidget(self.table)
 		self.tuesday.setLayout(self.tuesday.layout)
+		self.table_widget('Tuesday', 1)
+		self.tuesday1.layout.addWidget(self.table)
+		self.tuesday1.setLayout(self.tuesday1.layout)
+		self.table_widget('Wednesday',2)
+		self.wednesday.layout.addWidget(self.table)
+		self.wednesday.setLayout(self.wednesday.layout)
+		self.table_widget('Wednesday',1)
+		self.wednesday1.layout.addWidget(self.table)
+		self.wednesday1.setLayout(self.wednesday1.layout)
+		self.table_widget('Thursday',2)
+		self.thursday.layout.addWidget(self.table)
+		self.thursday.setLayout(self.thursday.layout)
+		self.table_widget('Thursday', 1)
+		self.thursday1.layout.addWidget(self.table)
+		self.thursday1.setLayout(self.thursday1.layout)
+		self.table_widget('Friday',2)
+		self.friday.layout.addWidget(self.table)
+		self.friday.setLayout(self.friday.layout)
+		self.table_widget('Friday', 1)
+		self.friday1.layout.addWidget(self.table)
+		self.friday1.setLayout(self.friday1.layout)
+		self.table_widget('Saturday',2)
+		self.saturday.layout.addWidget(self.table)
+		self.saturday.setLayout(self.saturday.layout)
+		self.table_widget('Saturday', 1)
+		self.saturday1.layout.addWidget(self.table)
+		self.saturday1.setLayout(self.saturday1.layout)
+		self.table_widget('Sunday',2)
+		self.sunday.layout.addWidget(self.table)
+		self.sunday.setLayout(self.sunday.layout)
+		self.table_widget('Sunday', 1)
+		self.sunday1.layout.addWidget(self.table)
+		self.sunday1.setLayout(self.sunday1.layout)
+
+
+
 	def switcher(self):
 		if self.n == 2:
 			self.n = 1
 		else:
 			self.n = 2
-		print(self.n)
+		a = self.tabs.currentIndex()
+		if self.n == 1:
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.addTab(self.monday1,"Monday")
+			self.tabs.addTab(self.tuesday1,"Tuesday")
+			self.tabs.addTab(self.wednesday1,"Wednesday")
+			self.tabs.addTab(self.thursday1,"Thursday")
+			self.tabs.addTab(self.friday1,"Friday")
+			self.tabs.addTab(self.saturday1,"Saturday")
+			self.tabs.addTab(self.sunday1,"Sunday")
+			self.tabs.setCurrentIndex(a)
+		else:
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.removeTab(0)
+			self.tabs.addTab(self.monday,"Monday")
+			self.tabs.addTab(self.tuesday,"Tuesday")
+			self.tabs.addTab(self.wednesday,"Wednesday")
+			self.tabs.addTab(self.thursday,"Thursday")
+			self.tabs.addTab(self.friday,"Friday")
+			self.tabs.addTab(self.saturday,"Saturday")
+			self.tabs.addTab(self.sunday,"Sunday")
+			self.tabs.setCurrentIndex(a)
+
 
 	def table_widget(self, day, week):
 
@@ -126,6 +211,9 @@ class MainWindow(QWidget):
 			self.table.setItem(i, 0, QTableWidgetItem(str(answer_help[i])[2:-3]))
 			self.table.setItem(i, 2, QTableWidgetItem(str('No')))
 
+		self.layout.addWidget(self.tabs)
+		self.layout.addWidget(self.switch_button)
+		self.setLayout(self.layout)
 		self.table.resizeColumnsToContents()
 
 	def coverterDAYtoNUM(self, today):
@@ -145,9 +233,6 @@ class MainWindow(QWidget):
 			return 7
 
 
-		self.layout.addWidget(self.tabs)
-		self.layout.addWidget(self.switch_button)
-		self.setLayout(self.layout)
 
 class Control:
 	def __init__(self):
