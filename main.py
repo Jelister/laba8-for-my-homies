@@ -240,7 +240,7 @@ class MainWindow(QWidget):
 			for i in range(len(answer_help)):
 				self.table.setItem(i, 0, QTableWidgetItem(str(answer_help[i])[2:-3]))
 				self.table.setItem(i, 2, QTableWidgetItem(str('No')))
-				self.table.setStyleSheet("""background: rgb(255,255,255)""")
+				self.table.setStyleSheet("""background: rgb(255,255,255); border: 0px""")
 
 			self.table.resizeColumnsToContents()
 		except Exception as error:
