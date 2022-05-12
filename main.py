@@ -9,8 +9,8 @@ class MainWindow(QWidget):
 		self.n = 2
 		QWidget.__init__(self)
 		self.setWindowTitle('MTUCI is the best university ever!')
-		self.setMaximumSize(QtCore.QSize(600,450))
-		self.setMinimumSize(QtCore.QSize(600,450))
+		self.setMaximumSize(QtCore.QSize(640,480))
+		self.setMinimumSize(QtCore.QSize(640,480))
 		self.main = QWidget(self)
 		self.layout = QVBoxLayout(self.main)
 
@@ -98,20 +98,20 @@ class MainWindow(QWidget):
 		self.sunday.layout = QVBoxLayout(self)
 		self.sunday.layout.addWidget(self.table)
 		self.sunday.setLayout(self.sunday.layout)
-		
+
 		self.table_widget('Sunday', 1)
 		self.sunday1.layout = QVBoxLayout(self)
 		self.sunday1.layout.addWidget(self.table)
 		self.sunday1.setLayout(self.sunday1.layout)
 
 		self.frame = QFrame(self)
-		self.frame.resize(600,450)
+		self.frame.resize(640,480)
 		self.frame.move(0,0)
 		self.frame.setStyleSheet("""color: rgb(240,240,240); background-color: rgb(240,240,240)""")
 
 
 		self.tabs = QTabWidget(self)
-		self.tabs.resize(560,420)
+		self.tabs.resize(600,450)
 		self.tabs.move(20,15)
 		self.tabs.addTab(self.monday,"Monday")
 		self.tabs.addTab(self.tuesday,"Tuesday")
@@ -193,8 +193,8 @@ class MainWindow(QWidget):
 			self.table = QTableWidget(self)
 			self.table.setColumnCount(3)
 			self.table.setRowCount(5)
-			self.table.setMinimumWidth(520)
-			self.table.setMinimumHeight(370)
+			self.table.setMinimumWidth(560)
+			self.table.setMinimumHeight(385)
 			self.table.move(40, 50)
 			self.table.setHorizontalHeaderLabels(['Class','Time','Have any sense?']) 
 			self.table.setItem(0, 1, QTableWidgetItem('9:30-11:05'))
@@ -240,6 +240,7 @@ class MainWindow(QWidget):
 			for i in range(len(answer_help)):
 				self.table.setItem(i, 0, QTableWidgetItem(str(answer_help[i])[2:-3]))
 				self.table.setItem(i, 2, QTableWidgetItem(str('No')))
+				self.table.setStyleSheet("""background: rgb(255,255,255)""")
 
 			self.table.resizeColumnsToContents()
 		except Exception as error:
