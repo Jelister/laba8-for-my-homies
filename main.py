@@ -134,7 +134,7 @@ class MainWindow(QWidget):
 			self.tabs.addTab(self.saturday1,"Saturday")
 			self.tabs.addTab(self.sunday1,"Sunday")
 			self.tabs.setCurrentIndex(a)
-			self.setWindowTitle('MTUCI is the best university ever! odd week')
+			self.setWindowTitle('MTUCI is the best university ever! even week')
 		else:
 			self.tabs.removeTab(0)
 			self.tabs.removeTab(0)
@@ -151,7 +151,7 @@ class MainWindow(QWidget):
 			self.tabs.addTab(self.saturday,"Saturday")
 			self.tabs.addTab(self.sunday,"Sunday")
 			self.tabs.setCurrentIndex(a)
-			self.setWindowTitle('MTUCI is the best university ever! even week')
+			self.setWindowTitle('MTUCI is the best university ever! odd week')
 
 
 	def table_widget(self, day, week):
