@@ -13,14 +13,7 @@ class MainWindow(QWidget):
 		self.setMinimumSize(QtCore.QSize(600,450))
 		self.layout = QVBoxLayout(self)
 
-		self.tabs = QTabWidget(self)
-		self.tabs.resize(560,420)
-		self.tabs.move(20,15)
 
-		self.switch_button = QPushButton('Switch week',self)
-		self.switch_button.clicked.connect(self.switcher)
-		self.switch_button.setStyleSheet("""min-height: 25; min-width: 100; max-height: 25; max-width: 100;""")
-		self.switch_button.move(495, 5)
 
 		self.monday = QWidget(self)
 		self.tuesday = QWidget(self)
@@ -36,13 +29,8 @@ class MainWindow(QWidget):
 		self.friday1 = QWidget(self)
 		self.saturday1 = QWidget(self)
 		self.sunday1 = QWidget(self)
-		self.tabs.addTab(self.monday,"Monday")
-		self.tabs.addTab(self.tuesday,"Tuesday")
-		self.tabs.addTab(self.wednesday,"Wednesday")
-		self.tabs.addTab(self.thursday,"Thursday")
-		self.tabs.addTab(self.friday,"Friday")
-		self.tabs.addTab(self.saturday,"Saturday")
-		self.tabs.addTab(self.sunday,"Sunday")
+
+
 		self.monday.layout = QVBoxLayout(self)
 		self.tuesday.layout = QVBoxLayout(self)
 		self.wednesday.layout = QVBoxLayout(self)
@@ -57,6 +45,7 @@ class MainWindow(QWidget):
 		self.friday1.layout = QVBoxLayout(self)
 		self.saturday1.layout = QVBoxLayout(self)
 		self.sunday1.layout = QVBoxLayout(self)
+
 		self.table_widget('Monday',2)
 		self.monday.layout.addWidget(self.table)
 		self.monday.setLayout(self.monday.layout)
@@ -100,6 +89,27 @@ class MainWindow(QWidget):
 		self.sunday1.layout.addWidget(self.table)
 		self.sunday1.setLayout(self.sunday1.layout)
 
+		self.frame = QFrame(self)
+		self.frame.resize(600,450)
+		self.frame.move(0,0)
+		self.frame.setStyleSheet("""color: rgb(240,240,240); background-color: rgb(240,240,240)""")
+
+
+		self.tabs = QTabWidget(self)
+		self.tabs.resize(560,420)
+		self.tabs.move(20,15)
+		self.tabs.addTab(self.monday,"Monday")
+		self.tabs.addTab(self.tuesday,"Tuesday")
+		self.tabs.addTab(self.wednesday,"Wednesday")
+		self.tabs.addTab(self.thursday,"Thursday")
+		self.tabs.addTab(self.friday,"Friday")
+		self.tabs.addTab(self.saturday,"Saturday")
+		self.tabs.addTab(self.sunday,"Sunday")
+		self.switch_button = QPushButton('Switch week',self)
+		self.switch_button.clicked.connect(self.switcher)
+		self.switch_button.setStyleSheet("""min-height: 25; min-width: 100; max-height: 25; max-width: 100;""")
+		self.switch_button.move(495, 5)
+
 
 
 	def switcher(self):
@@ -124,6 +134,7 @@ class MainWindow(QWidget):
 			self.tabs.addTab(self.saturday1,"Saturday")
 			self.tabs.addTab(self.sunday1,"Sunday")
 			self.tabs.setCurrentIndex(a)
+			self.setWindowTitle('MTUCI is the best university ever! odd week')
 		else:
 			self.tabs.removeTab(0)
 			self.tabs.removeTab(0)
@@ -140,6 +151,7 @@ class MainWindow(QWidget):
 			self.tabs.addTab(self.saturday,"Saturday")
 			self.tabs.addTab(self.sunday,"Sunday")
 			self.tabs.setCurrentIndex(a)
+			self.setWindowTitle('MTUCI is the best university ever! even week')
 
 
 	def table_widget(self, day, week):
@@ -211,9 +223,6 @@ class MainWindow(QWidget):
 			self.table.setItem(i, 0, QTableWidgetItem(str(answer_help[i])[2:-3]))
 			self.table.setItem(i, 2, QTableWidgetItem(str('No')))
 
-		self.layout.addWidget(self.tabs)
-		self.layout.addWidget(self.switch_button)
-		self.setLayout(self.layout)
 		self.table.resizeColumnsToContents()
 
 	def coverterDAYtoNUM(self, today):
@@ -232,6 +241,9 @@ class MainWindow(QWidget):
 		elif today == 'Sunday':
 			return 7
 
+		self.layout.addWidget(self.tabs)
+		self.layout.addWidget(self.switch_button)
+		self.setLayout(self.layout)
 
 
 class Control:
