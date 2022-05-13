@@ -181,8 +181,9 @@ class MainWindow(QWidget):
 			t3 = "postgres"#USER PASSCODE!
 			t4 = "5432"#PORT!
 			t5 = "test"#TABLE NAME!
+			t6 = "localhost"
 
-			conn = psycopg2.connect(dbname=t1, user=t2, password=t3, port=t4)
+			conn = psycopg2.connect(dbname=t1, user=t2, password=t3, port=t4, host=t6)
 			cur_sql = conn.cursor()
 			cur_sql.execute('SELECT * FROM '+str(t5))
 
